@@ -106,13 +106,13 @@
         console.log('Connected to socket...');
         // Handle Output
         socket.on('output', function (data) {
-          //console.log(data);
+          console.log(data);
           if (data.length) {
             for (var x = 0; x < data.length; x++) {
               // Build out message div
               var message = document.createElement('div');
               message.setAttribute('class', 'chat-message');
-              message.textContent = data[x].name + ": " + data[x].message;
+              message.textContent = data[x].name + " ("+ data[x].product +"): " + data[x].message;
               messages.appendChild(message);
               messages.insertBefore(message, messages.firstChild);
             }
@@ -133,19 +133,22 @@
             // Emit to server input
             socket.emit('input', {
               name: username.value,
-              message: textarea.value
+              message: textarea.value,
+              product: 'admin'
             });
             event.preventDefault();
           }
         })
         // Handle Chat Clear
         clearBtn.addEventListener('click', function () {
-          socket.emit('clear');
-        });
-        // Clear Message
-        socket.on('cleared', function () {
+          //socket.emit('clear');
+          //socket.emit('terminar');
           messages.textContent = '';
         });
+        // Clear Message
+        /*socket.on('cleared', function () {
+          messages.textContent = '';
+        });*/
       }
     })();
   </script>

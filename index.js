@@ -66,6 +66,7 @@ mongo.connect('mongodb://Manu:j1WKp16eJUZIm66e@cluster0-shard-00-00-4mgro.mongod
     socket.on('input', function (data) {
       let name = data.name;
       let message = data.message;
+      let product = data.product;
 
       // Check for name and message
       if (name == '' || message == '') {
@@ -73,7 +74,7 @@ mongo.connect('mongodb://Manu:j1WKp16eJUZIm66e@cluster0-shard-00-00-4mgro.mongod
         sendStatus('Please enter a name and message');
       } else {
         // Insert message
-        chat.insert({ name: name, message: message }, function () {
+        chat.insert({ name: name, message: message, product: product }, function () {
           client.emit('output', [data]);
 
           // Send status object
